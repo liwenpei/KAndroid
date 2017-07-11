@@ -1,0 +1,43 @@
+<!--
+ Copyright (C) 2015. Keegan小钢（http://keeganlee.me）
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+<resources>
+    <string name="app_name">KAndroid</string>
+
+    <!-- 页面标题 -->
+    <string name="title_activity_login">登录</string>
+    <string name="title_activity_register">注册</string>
+    <string name="title_activity_coupon_list">最新券</string>
+
+    <!-- ActionBar -->
+    <string name="action_register">注册</string>
+
+    <!-- 按钮文字 -->
+    <string name="btn_login">登录</string>
+    <string name="btn_register">注册</string>
+    <string name="btn_goto_register">注册</string>
+    <string name="btn_send_code">发送验证码</string>
+
+    <!-- EditText hint -->
+    <string name="hint_phone">手机号码</string>
+    <string name="hint_password">密码</string>
+    <string name="hint_code">验证码</string>
+
+    <!-- Toast信息 -->
+    <string name="toast_login_success">登录成功</string>
+    <string name="toast_code_has_sent">验证码已发送到手机</string>
+    <string name="toast_register_success">注册成功</string>
+
+</resources>
