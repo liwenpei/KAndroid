@@ -27,8 +27,8 @@ import android.support.v4.app.FragmentActivity;
 import me.keeganlee.kandroid.KApplication;
 import me.keeganlee.kandroid.bean.ActivityTransfer;
 import me.keeganlee.kandroid.core.AppAction;
-import me.keeganlee.kandroid.global.KAndroidException;
-import me.keeganlee.kandroid.global.LogUtil;
+import me.keeganlee.kandroid.exception.KAndroidException;
+import me.keeganlee.kandroid.tools.LogUtil;
 
 /**
  * Activity抽象基类

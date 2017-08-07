@@ -1,4 +1,6 @@
-package me.keeganlee.kandroid.global;
+package me.keeganlee.kandroid.exception;
+
+import me.keeganlee.kandroid.tools.LogUtil;
 
 /**
  * Created by Administrator on 2017/7/10 0010.

@@ -26,8 +26,8 @@ import android.app.Application;
 import me.keeganlee.kandroid.bean.ActivityTransfer;
 import me.keeganlee.kandroid.core.AppAction;
 import me.keeganlee.kandroid.core.AppActionImpl;
-import me.keeganlee.kandroid.global.JackonUtil;
-import me.keeganlee.kandroid.global.LogUtil;
+import me.keeganlee.kandroid.tools.JackonUtil;
+import me.keeganlee.kandroid.tools.LogUtil;
 
 /**
  * Application类，应用级别的操作都放这里

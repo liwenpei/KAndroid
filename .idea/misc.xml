@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="EclipseCodeFormatter">
+    <option name="defaultSettings" value="true" />
+    <option name="formatter" value="ECLIPSE" />
+    <option name="id" value="1487325010961" />
+    <option name="name" value="default" />
+    <option name="pathToConfigFileJava" value="E:/共享资源/陈利顺/android-java-code-format.xml" />
+    <option name="selectedJavaProfile" value="gionee eclipse java code format" />
+  </component>
   <component name="EntryPointsManager">
     <entry_points version="2.0" />
   </component>
