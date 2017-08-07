@@ -53,6 +53,7 @@ public class LoginActivity extends KBaseActivity {
         mPhoneEdit = (EditText) findViewById(R.id.edit_phone);
         mPasswordEdit = (EditText) findViewById(R.id.edit_password);
         mLoginBtn = (Button) findViewById(R.id.btn_login);
+        setActionBar("测试头部");
     }
 
     // 准备登录

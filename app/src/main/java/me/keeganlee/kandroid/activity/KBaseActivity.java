@@ -19,15 +19,20 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+import android.app.ActionBar;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.widget.TextView;
 
 import me.keeganlee.kandroid.KApplication;
+import me.keeganlee.kandroid.R;
 import me.keeganlee.kandroid.bean.ActivityTransfer;
 import me.keeganlee.kandroid.core.AppAction;
 import me.keeganlee.kandroid.exception.KAndroidException;
+import me.keeganlee.kandroid.tools.CommonUtils;
 import me.keeganlee.kandroid.tools.LogUtil;
 
 /**
@@ -66,7 +71,10 @@ public abstract class KBaseActivity extends FragmentActivity {
 
     /**
      * check the from class code
-     * @param c  entry code*/
+     * 
+     * @param c
+     *            entry code
+     */
     private boolean checkFromCls(int c) {
         for (ActivityTransfer bean : mActivityList) {
             if (c == 0 && getClass().getName().equals(bean.getFrom())
@@ -80,10 +88,14 @@ public abstract class KBaseActivity extends FragmentActivity {
         }
         return false;
     }
+
     /**
      * goto to activity when you configurationed
-     * @param id code
-     * @param o object
+     * 
+     * @param id
+     *            code
+     * @param o
+     *            object
      **/
     public void gotoActivity(int id, Object o) {
         boolean isFind = false;
@@ -122,10 +134,11 @@ public abstract class KBaseActivity extends FragmentActivity {
         }
         if (!isFind) {
             throw new KAndroidException("can not find your activity ,please check your config");
-        }else{
+        } else {
             LogUtil.debug("goto activity sucessfull");
         }
     }
+
     /**
      * get data when jump to another activity
      **/
@@ -138,6 +151,7 @@ public abstract class KBaseActivity extends FragmentActivity {
         super.onResume();
         mIsRunEnd.set(true);
     }
+
     /**
      * get data when come back the activity
      **/
@@ -151,4 +165,18 @@ public abstract class KBaseActivity extends FragmentActivity {
     protected abstract void initView();
 
     protected abstract void initData();
+
+    protected void setActionBar(String title) {
+        ActionBar actionBar = getActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(false);
+        actionBar.setDisplayShowHomeEnabled(false);
+        actionBar.setCustomView(R.layout.action_bar);
+        actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM,
+                ActionBar.DISPLAY_SHOW_CUSTOM | ActionBar.DISPLAY_SHOW_HOME | ActionBar.DISPLAY_SHOW_TITLE);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            actionBar.setElevation(CommonUtils.parsePxByDp(this, 2));
+        }
+        TextView txt = (TextView) actionBar.getCustomView().findViewById(R.id.title);
+        txt.setText(title);
+    }
 }

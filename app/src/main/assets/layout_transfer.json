@@ -1,12 +1,3 @@
-<!--
-remark: when you want to jump page , you must configuration the file
-        id:
-        from:current activity class
-        to:the target page you want to jump
-        method:startActivity or startActivityForResult
-        request_code:the flag when you startActivityForResult
-        check_run_end:prevent to double click when jumping to page
--->
 [
 {"id": "10000",
           "from": "me.keeganlee.kandroid.activity.LoginActivity",
@@ -21,10 +12,9 @@ remark: when you want to jump page , you must configuration the file
           "to": "me.keeganlee.kandroid.activity.LoginActivity",
           "finish": "false",
           "method": "startActivityForResult",
-          "request_code": "1",<!--when method is startActivityForResult,request_code was must write in-->
+          "request_code": "1",
           "check_run_end": "true"
 },
-<!--从登陆画面跳转到注册画面-->
 {"id": "10002",
             "from": "me.keeganlee.kandroid.activity.LoginActivity",
             "to": "me.keeganlee.kandroid.activity.RegisterActivity",
