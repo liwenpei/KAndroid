@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--话费按钮控件属性-->
+    <declare-styleable name="rechargeButton">
+        <attr name="titleTextSize" format="integer" />
+        <attr name="contentTextSize" format="integer" />
+        <attr name="isNewLine" format="boolean" />
+    </declare-styleable>
+</resources>
