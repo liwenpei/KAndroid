@@ -9,6 +9,6 @@ public class KAndroidException extends RuntimeException{
 
     public KAndroidException(String message) {
         super(message);
-        LogUtil.debug(message);
+        LogUtil.error(message);
     }
 }

@@ -18,4 +18,12 @@ public class LogUtil {
         Log.d(TAG+"_"+tag,o);
     }
 
+    public static void error(String o){
+        Log.d(TAG+"_"+SECONDETAG,o);
+    }
+
+    public static void error(String tag,String o){
+        Log.d(TAG+"_"+tag,o);
+    }
+
 }

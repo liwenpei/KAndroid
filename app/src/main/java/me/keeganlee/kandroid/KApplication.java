@@ -71,7 +71,7 @@ public class KApplication extends Application {
 
         mActivityList = JackonUtil.readListValue(content, ActivityTransfer.class);
         if(mActivityList == null){
-            LogUtil.debug("init activity list config was wrong");
+            LogUtil.error("init activity list config was wrong");
         }
 
         LogUtil.debug("init activity list config sucess");
