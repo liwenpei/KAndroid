@@ -15,6 +15,7 @@
  */
 package me.keeganlee.kandroid.activity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.view.View;
 import android.widget.Button;
@@ -25,6 +26,7 @@ import me.keeganlee.kandroid.R;
 import me.keeganlee.kandroid.bean.TestBean;
 import me.keeganlee.kandroid.core.ActionCallbackListener;
 import me.keeganlee.kandroid.tools.LogUtil;
+import me.keeganlee.kandroid.widget.CustomDialog;
 
 /**
  * 登录
@@ -82,6 +84,24 @@ public class LoginActivity extends KBaseActivity {
 
     // 进入注册页
     public void toRegister(View view) {
+        CustomDialog.Builder builder = new CustomDialog.Builder(this);
+        builder.setMessage("这个就是自定义的提示框");
+        builder.setTitle("提示");
+        builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+                //设置你的操作事项
+            }
+        });
+
+        builder.setNegativeButton("取消",
+                new android.content.DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+        builder.create().show();
+        if(1==1){return;}
         LogUtil.debug("正在点击");
         TestBean bean = new TestBean();
         bean.setAge("100");
