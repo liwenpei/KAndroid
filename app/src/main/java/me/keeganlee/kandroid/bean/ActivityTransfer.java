@@ -15,6 +15,16 @@ public class ActivityTransfer implements Serializable{
     private String checkRunEnd;
     private String method;
     private String requestCode;
+    private String beanCls;
+
+
+    public String getBeanCls() {
+        return beanCls;
+    }
+
+    public void setBeanCls(String beanCls) {
+        this.beanCls = beanCls;
+    }
 
     public String getRequestCode() {
         return requestCode;

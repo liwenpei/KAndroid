@@ -20,5 +20,6 @@
             "to": "me.keeganlee.kandroid.activity.RegisterActivity",
             "finish": "false",
             "method": "startActivity",
-            "check_run_end": "true"
+            "check_run_end": "true",
+            "bean_cls":"me.keeganlee.kandroid.bean.TestBean"
 }]

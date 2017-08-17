@@ -125,6 +125,7 @@ public abstract class KBaseActivity extends FragmentActivity {
                         finish();
                     }
                     isFind = true;
+                    LogUtil.debug("goto "+transfer.getTo()+" activity sucessfull");
                     break;
                 }
             }
@@ -134,16 +135,14 @@ public abstract class KBaseActivity extends FragmentActivity {
         }
         if (!isFind) {
             throw new KAndroidException("can not find your activity ,please check your config");
-        } else {
-            LogUtil.debug("goto activity sucessfull");
         }
     }
 
     /**
      * get data when jump to another activity
      **/
-    protected Object getTransferData() {
-        return getIntent().getSerializableExtra(TRANSFER_KEY);
+    protected <T> T getTransferData() {
+        return (T)getIntent().getSerializableExtra(TRANSFER_KEY);
     }
 
     @Override

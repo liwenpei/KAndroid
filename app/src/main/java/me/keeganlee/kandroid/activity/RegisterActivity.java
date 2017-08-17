@@ -23,9 +23,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import junit.framework.Test;
+
 import me.keeganlee.kandroid.R;
 import me.keeganlee.kandroid.bean.TestBean;
 import me.keeganlee.kandroid.core.ActionCallbackListener;
+import me.keeganlee.kandroid.tools.LogUtil;
 
 /**
  * 注册
@@ -49,6 +52,9 @@ public class RegisterActivity extends KBaseActivity {
 
     @Override
     protected void initData() {
+        TestBean bean = getTransferData();
+        LogUtil.debug(bean.toString());
+
     }
 
     @Override
