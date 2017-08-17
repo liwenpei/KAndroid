@@ -1,4 +1,4 @@
-package me.keeganlee.kandroid.model;
+package me.keeganlee.kandroid.tools;
 
 import java.io.Serializable;
 import java.lang.reflect.Field;

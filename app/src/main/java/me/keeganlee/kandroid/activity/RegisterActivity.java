@@ -52,9 +52,10 @@ public class RegisterActivity extends KBaseActivity {
 
     @Override
     protected void initData() {
-        TestBean bean = getTransferData();
-        LogUtil.debug(bean.toString());
-
+        if(getFromCls().equals(LoginActivity.class.getName())){
+            TestBean bean = getTransferData();
+            LogUtil.debug(bean.toString());
+        }
     }
 
     @Override

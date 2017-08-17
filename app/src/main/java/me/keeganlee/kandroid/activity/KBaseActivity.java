@@ -43,6 +43,7 @@ import me.keeganlee.kandroid.tools.LogUtil;
 public abstract class KBaseActivity extends FragmentActivity {
     public static final String TRANSFER_KEY = "transfer_key";
     public static final String TRANSFER_CODE_KEY = "transfer_code_key";
+    public static final String TRANSFER_FROM_KEY = "transfer_from_key";
     // 上下文实例
     public Context context;
     // 应用全局的实例
@@ -116,6 +117,7 @@ public abstract class KBaseActivity extends FragmentActivity {
                     bundle.putSerializable(TRANSFER_KEY, (Serializable) o);
                     intent.putExtras(bundle);
                     intent.putExtra(TRANSFER_CODE_KEY, id);
+                    intent.putExtra(TRANSFER_FROM_KEY,transfer.getFrom());
                     if ("startActivity".equals(transfer.getMethod())) {
                         startActivity(intent);
                     } else {
@@ -143,6 +145,11 @@ public abstract class KBaseActivity extends FragmentActivity {
      **/
     protected <T> T getTransferData() {
         return (T)getIntent().getSerializableExtra(TRANSFER_KEY);
+    }
+
+    /**get from class name*/
+    protected String getFromCls(){
+        return getIntent().getStringExtra(TRANSFER_FROM_KEY);
     }
 
     @Override
