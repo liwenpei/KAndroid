@@ -22,9 +22,15 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import android.app.ActionBar;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.FragmentActivity;
+import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.TextView;
 
 import me.keeganlee.kandroid.KApplication;
@@ -57,7 +63,7 @@ public abstract class KBaseActivity extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         context = getApplicationContext();
-        application = (KApplication) this.getApplication();
+        application = (KApplication) KBaseActivity.this.getApplication();
         appAction = application.getAppAction();
         // 获取配置文件
         mActivityList = application.getActivityList();
@@ -68,6 +74,7 @@ public abstract class KBaseActivity extends FragmentActivity {
         }
         initView();
         initData();
+
     }
 
     /**

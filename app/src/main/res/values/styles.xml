@@ -61,5 +61,21 @@
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowIsFloating">true</item>
     </style>
+    <style name="test">
+        <!--状态栏颜色-->
+        <item name="colorPrimaryDark">@android:color/white</item>
+        <!--控制各个控件被选中时的颜色-->
+        <item name="colorAccent">@android:color/white</item>
+        <!--页面背景色-->
+        <item name="android:windowBackground">@android:color/white</item>
+        <!--api 21 可用 底部导航栏颜色-->
+        <item name="android:navigationBarColor">@android:color/white</item>
+        <!--api 21 可用 Appbar背景色-->
+        <item name="android:colorPrimary">@android:color/white</item>
+        <!--ToolBar上的Title颜色-->
+        <item name="android:textColorPrimary">@android:color/white</item>
+        <!--api 21 可用 各个控制控件的默认颜色-->
+        <item name="android:colorControlNormal">@android:color/white</item>
+    </style>
 
 </resources>
