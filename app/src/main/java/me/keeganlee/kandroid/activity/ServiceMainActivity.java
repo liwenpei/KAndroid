@@ -1,12 +1,10 @@
 package me.keeganlee.kandroid.activity;
-import android.app.Activity;
+
 import android.app.Service;
 import android.content.ComponentName;
 import android.content.Intent;
-import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.IBinder;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -14,7 +12,9 @@ import android.widget.Toast;
 
 import me.keeganlee.kandroid.R;
 import me.keeganlee.kandroid.bean.TestBean;
+import me.keeganlee.kandroid.kinterface.KBaseServiceConnection;
 import me.keeganlee.kandroid.service.LocalService;
+import me.keeganlee.kandroid.tools.LogUtil;
 
 
 public class ServiceMainActivity extends KBaseActivity {
@@ -54,6 +54,8 @@ public class ServiceMainActivity extends KBaseActivity {
     class MyOnClickListener implements OnClickListener {
         @Override
         public void onClick(View v) {
+
+
             Intent intent = new Intent();
             intent.setClass(ServiceMainActivity.this, LocalService.class);
             switch (v.getId()) {
@@ -66,17 +68,24 @@ public class ServiceMainActivity extends KBaseActivity {
                     break;
                 case R.id.stop:
                     // 停止Service
-                    stopService(intent);
+                    LogUtil.debug(((TestBean)getLocalService().getTransferData()).getAge());
+                    gotoService(10005,null);
+                    //stopService(intent);
                     toast("stopService");
                     break;
                 case R.id.bind:
                     // 绑定Service
-                    bindService(intent, conn, Service.BIND_AUTO_CREATE);
+                    TestBean testBean1 = new TestBean();
+                    testBean1.setAge("111ddd");
+                    gotoService(10004,testBean1);
+                    gotoService(10006,testBean1,conn,  BIND_NOT_FOREGROUND);
+                    //bindService(intent, conn, Service.BIND_AUTO_CREATE);
                     toast("bindService");
                     break;
                 case R.id.unbind:
                     // 解除Service
-                    unbindService(conn);
+                    gotoService(10007,null,conn);
+                    //unbindService(conn);
                     toast("unbindService");
                     break;
             }
@@ -92,10 +101,10 @@ public class ServiceMainActivity extends KBaseActivity {
             }
         });
     }
-    private ServiceConnection conn = new ServiceConnection() {
+    public KBaseServiceConnection conn = new KBaseServiceConnection() {
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
-            Log.e(TAG, "连接成功");
+            LogUtil.debug("连接成功");
             // 当Service连接建立成功后，提供给客户端与Service交互的对象（根据Android Doc翻译的，不知道准确否。。。。）
             myService = ((LocalService.LocalBinder) service).getService();
         }
@@ -103,7 +112,7 @@ public class ServiceMainActivity extends KBaseActivity {
 
         @Override
         public void onServiceDisconnected(ComponentName name) {
-            Log.e(TAG, "断开连接");
+            LogUtil.debug("断开连接");
             myService = null;
         }
     };

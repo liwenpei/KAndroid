@@ -10,8 +10,10 @@ import android.app.Activity;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Binder;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.support.v4.app.FragmentActivity;
 import android.widget.TextView;
 
@@ -30,12 +32,8 @@ import me.keeganlee.kandroid.tools.LogUtil;
  * @version 1.0 创建时间：15/6/26
  */
 public abstract class KBaseService extends Service {
-    // 上下文实例
-    public Context context;
     // 应用全局的实例
-    public KApplication application;
-    // 核心层的Action实例
-    public AppAction appAction;
+    private KApplication application;
     private List<ActivityTransfer>  mActivityList;
     private Intent mIntent;
     @Override
@@ -46,24 +44,32 @@ public abstract class KBaseService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         mIntent = intent;
-        context = getApplicationContext();
+        checkFrom();
+        return super.onStartCommand(intent, flags, startId);
+    }
+
+    private void checkFrom(){
         application = (KApplication) this.getApplication();
         // 校验
         int c = mIntent.getIntExtra(KBaseActivity.TRANSFER_CODE_KEY, 0);
         if (!application.checkFromCls(getClass().getName(),c)) {
             throw new KAndroidException("the service entry is not valide");
         }
-        return super.onStartCommand(intent, flags, startId);
     }
 
-
-
-
+    @Override
+    public IBinder onBind(Intent intent) {
+        mIntent = intent;
+        checkFrom();
+        return new Binder();
+    }
     /**
      * get data when jump to another activity
      **/
-    protected Object getTransferData() {
-        return mIntent.getSerializableExtra(KBaseActivity.TRANSFER_KEY);
+    public Object getTransferData() {
+        if(mIntent != null){
+            return mIntent.getSerializableExtra(KBaseActivity.TRANSFER_KEY);
+        }
+        return null;
     }
-
 }

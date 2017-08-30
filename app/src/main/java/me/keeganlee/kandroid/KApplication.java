@@ -54,6 +54,7 @@ public class KApplication extends Application {
         if(mActivityList != null){
             return mActivityList;
         }
+        LogUtil.debug("start to init activity list config");
         String content = null;
         try {
             InputStream is = getAssets().open("activity_transfer.json");
@@ -73,9 +74,9 @@ public class KApplication extends Application {
         mActivityList = JackonUtil.readListValue(content, ActivityTransfer.class);
         if(mActivityList == null){
             LogUtil.error("init activity list config was wrong");
+        }else{
+            LogUtil.debug("init activity list config sucess");
         }
-
-        LogUtil.debug("init activity list config sucess");
         return mActivityList;
     }
 

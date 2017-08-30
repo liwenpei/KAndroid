@@ -27,10 +27,26 @@
     "to": "me.keeganlee.kandroid.activity.ServiceMainActivity",
     "method": "startActivity"
   },
-
   {"id": "10004",
     "from": "me.keeganlee.kandroid.activity.ServiceMainActivity",
     "to": "me.keeganlee.kandroid.service.LocalService",
     "method": "startService"
+  },
+  {"id": "10005",
+    "from": "me.keeganlee.kandroid.activity.ServiceMainActivity",
+    "to": "me.keeganlee.kandroid.service.LocalService",
+    "method": "stopService"
+  },
+  {"id": "10006",
+    "from": "me.keeganlee.kandroid.activity.ServiceMainActivity",
+    "to": "me.keeganlee.kandroid.service.LocalService",
+    "method": "bindService",
+    "connection_cls":"me.keeganlee.kandroid.impl.KBaseServiceConnectionImpl"
+  },
+  {"id": "10007",
+    "from": "me.keeganlee.kandroid.activity.ServiceMainActivity",
+    "to": "me.keeganlee.kandroid.service.LocalService",
+    "method": "unbindService",
+    "connection_cls":"me.keeganlee.kandroid.impl.KBaseServiceConnectionImpl"
   }
 ]

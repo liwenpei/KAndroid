@@ -34,6 +34,9 @@ import me.keeganlee.kandroid.R;
 import me.keeganlee.kandroid.bean.ActivityTransfer;
 import me.keeganlee.kandroid.core.AppAction;
 import me.keeganlee.kandroid.exception.KAndroidException;
+import me.keeganlee.kandroid.impl.KBaseServiceConnectionImpl;
+import me.keeganlee.kandroid.kinterface.KBaseServiceConnection;
+import me.keeganlee.kandroid.service.LocalService;
 import me.keeganlee.kandroid.tools.CommonUtils;
 import me.keeganlee.kandroid.tools.LogUtil;
 
@@ -53,7 +56,7 @@ public abstract class KBaseActivity extends FragmentActivity {
     public AppAction appAction;
     private List<ActivityTransfer> mActivityList;
     private static AtomicBoolean mIsRunEnd = new AtomicBoolean(true);
-
+    private KBaseServiceConnectionImpl mKBaseServiceConnection;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -128,6 +131,13 @@ public abstract class KBaseActivity extends FragmentActivity {
     public void gotoService(int id, Object o, ServiceConnection conn){
         gotoService(id,o,conn,0);
     }
+
+    protected LocalService getLocalService(){
+        if(mKBaseServiceConnection != null){
+            return mKBaseServiceConnection.getMyService();
+        }
+        return null;
+    }
     /**
      * goto to service when you configurationed
      *
@@ -143,17 +153,23 @@ public abstract class KBaseActivity extends FragmentActivity {
                     Class c = Class.forName(transfer.getTo());
                     Intent intent = new Intent(this, c);
                     Bundle bundle = new Bundle();
-                    bundle.putSerializable(KBaseActivity.TRANSFER_KEY, (Serializable) o);
+                    if(o != null){
+                        bundle.putSerializable(KBaseActivity.TRANSFER_KEY, (Serializable) o);
+                    }
                     intent.putExtras(bundle);
                     intent.putExtra(KBaseActivity.TRANSFER_CODE_KEY, id);
+                    if(mKBaseServiceConnection == null && transfer.getConnectionCls() != null){
+                        Class connectionCls = Class.forName(transfer.getConnectionCls());
+                        mKBaseServiceConnection = (KBaseServiceConnectionImpl) connectionCls.newInstance();
+                    }
                     if("startService".equals(transfer.getMethod())){
                         startService(intent);
                     }else if("stopService".equals(transfer.getMethod())){
                         stopService(intent);
                     }else if("bindService".equals(transfer.getMethod())){
-                        bindService(intent,conn,flags);
+                        bindService(intent,mKBaseServiceConnection,flags);
                     }else if("unbindService".equals(transfer.getMethod())){
-                        unbindService(conn);
+                        unbindService(mKBaseServiceConnection);
                     }else{
                         LogUtil.debug("your method is wrong");
                     }

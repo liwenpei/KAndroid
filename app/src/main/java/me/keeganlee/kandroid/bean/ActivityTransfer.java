@@ -15,6 +15,15 @@ public class ActivityTransfer implements Serializable{
     private String checkRunEnd;
     private String method;
     private String requestCode;
+    private String connectionCls;
+
+    public String getConnectionCls() {
+        return connectionCls;
+    }
+
+    public void setConnectionCls(String connectionCls) {
+        this.connectionCls = connectionCls;
+    }
 
     public String getRequestCode() {
         return requestCode;
