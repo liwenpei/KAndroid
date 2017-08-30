@@ -55,7 +55,7 @@ public class LoginActivity extends KBaseActivity {
         mPhoneEdit = (EditText) findViewById(R.id.edit_phone);
         mPasswordEdit = (EditText) findViewById(R.id.edit_password);
         mLoginBtn = (Button) findViewById(R.id.btn_login);
-        setActionBar("测试头部111");
+        //setActionBar("测试头部111");
     }
 
     // 准备登录
@@ -84,7 +84,7 @@ public class LoginActivity extends KBaseActivity {
 
     // 进入注册页
     public void toRegister(View view) {
-        CustomDialog.Builder builder = new CustomDialog.Builder(this);
+      /*  CustomDialog.Builder builder = new CustomDialog.Builder(this);
         builder.setMessage("这个就是自定义的提示框");
         builder.setTitle("提示");
         builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
@@ -101,7 +101,7 @@ public class LoginActivity extends KBaseActivity {
                     }
                 });
         builder.create().show();
-        if(1==1){return;}
+        if(1==1){return;}*/
         LogUtil.debug("正在点击");
         TestBean bean = new TestBean();
         bean.setAge("100");

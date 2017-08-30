@@ -15,13 +15,14 @@
  */
 package me.keeganlee.kandroid;
 
+import android.app.Application;
+import android.content.Context;
+
 import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
-
-import android.app.Application;
 
 import me.keeganlee.kandroid.bean.ActivityTransfer;
 import me.keeganlee.kandroid.core.AppAction;
@@ -55,7 +56,7 @@ public class KApplication extends Application {
         }
         String content = null;
         try {
-            InputStream is = getAssets().open("layout_transfer.json");
+            InputStream is = getAssets().open("activity_transfer.json");
             content = readDataFromInputStream(is);
             content = content.replace("\r\n", "");
             content = content.replace("\n", "");
@@ -110,5 +111,24 @@ public class KApplication extends Application {
         }
 
         return str;
+    }
+
+    /**
+     * check the from class code
+     *
+     * @param c entry code
+     */
+    public boolean checkFromCls(String clsName, int c) {
+        for (ActivityTransfer bean : getActivityList()) {
+            if (c == 0 && clsName.equals(bean.getFrom())
+                    && clsName.equals(bean.getTo())) {
+                // 入口
+                return true;
+            }
+            if (clsName.equals(bean.getTo()) && c == Integer.parseInt(bean.getId())) {
+                return true;
+            }
+        }
+        return false;
     }
 }

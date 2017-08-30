@@ -20,8 +20,10 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import android.app.ActionBar;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
@@ -41,8 +43,8 @@ import me.keeganlee.kandroid.tools.LogUtil;
  * @version 1.0 创建时间：15/6/26
  */
 public abstract class KBaseActivity extends FragmentActivity {
-    public static final String TRANSFER_KEY = "transfer_key";
-    public static final String TRANSFER_CODE_KEY = "transfer_code_key";
+    public static final String TRANSFER_KEY = "service_transfer_key";
+    public static final String TRANSFER_CODE_KEY = "service_transfer_code_key";
     // 上下文实例
     public Context context;
     // 应用全局的实例
@@ -58,35 +60,15 @@ public abstract class KBaseActivity extends FragmentActivity {
         context = getApplicationContext();
         application = (KApplication) this.getApplication();
         appAction = application.getAppAction();
-        // 获取配置文件
+        // 获取acitivity配置文件
         mActivityList = application.getActivityList();
         // 校验
         int c = getIntent().getIntExtra(TRANSFER_CODE_KEY, 0);
-        if (!checkFromCls(c)) {
+        if (!application.checkFromCls(getClass().getName(),c)) {
             throw new KAndroidException("the activity entry is not valide");
         }
         initView();
         initData();
-    }
-
-    /**
-     * check the from class code
-     * 
-     * @param c
-     *            entry code
-     */
-    private boolean checkFromCls(int c) {
-        for (ActivityTransfer bean : mActivityList) {
-            if (c == 0 && getClass().getName().equals(bean.getFrom())
-                    && getClass().getName().equals(bean.getTo())) {
-                // 入口
-                return true;
-            }
-            if (getClass().getName().equals(bean.getTo()) && c == Integer.parseInt(bean.getId())) {
-                return true;
-            }
-        }
-        return false;
     }
 
     /**
@@ -136,6 +118,57 @@ public abstract class KBaseActivity extends FragmentActivity {
             throw new KAndroidException("can not find your activity ,please check your config");
         } else {
             LogUtil.debug("goto activity sucessfull");
+        }
+    }
+
+    public void gotoService(int id, Object o){
+        gotoService(id,o,null,0);
+    }
+
+    public void gotoService(int id, Object o, ServiceConnection conn){
+        gotoService(id,o,conn,0);
+    }
+    /**
+     * goto to service when you configurationed
+     *
+     * @param id code
+     * @param o  object
+     **/
+    public void gotoService(int id, Object o,  ServiceConnection conn, int flags) {
+        boolean isFind = false;
+        try {
+            for (ActivityTransfer transfer : mActivityList) {
+                if (id == Integer.parseInt(transfer.getId())
+                        && getClass().getName().equals(transfer.getFrom())) {
+                    Class c = Class.forName(transfer.getTo());
+                    Intent intent = new Intent(this, c);
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable(KBaseActivity.TRANSFER_KEY, (Serializable) o);
+                    intent.putExtras(bundle);
+                    intent.putExtra(KBaseActivity.TRANSFER_CODE_KEY, id);
+                    if("startService".equals(transfer.getMethod())){
+                        startService(intent);
+                    }else if("stopService".equals(transfer.getMethod())){
+                        stopService(intent);
+                    }else if("bindService".equals(transfer.getMethod())){
+                        bindService(intent,conn,flags);
+                    }else if("unbindService".equals(transfer.getMethod())){
+                        unbindService(conn);
+                    }else{
+                        LogUtil.debug("your method is wrong");
+                    }
+                    isFind = true;
+                    break;
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new KAndroidException(e.getMessage());
+        }
+        if (!isFind) {
+            throw new KAndroidException("can not find your service ,please check your config");
+        } else {
+            LogUtil.debug("goto service sucessfull");
         }
     }
 

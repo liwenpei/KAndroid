@@ -28,7 +28,7 @@
         android:theme="@style/AppTheme" >
         <activity
             android:name=".activity.LoginActivity"
-            android:label="@string/app_name" >
+            android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -36,12 +36,19 @@
         </activity>
         <activity
             android:name=".activity.RegisterActivity"
-            android:label="@string/title_activity_register" >
+            android:label="@string/title_activity_register">
         </activity>
         <activity
             android:name=".activity.CouponListActivity"
             android:label="@string/title_activity_coupon_list" >
         </activity>
+
+        <!-- 注册Service -->
+        <service android:name="me.keeganlee.kandroid.service.LocalService">
+            <intent-filter>
+                <action android:name="me.keeganlee.kandroid.service.LocalService" />
+            </intent-filter>
+        </service>
     </application>
 
 </manifest>

@@ -1,0 +1,36 @@
+[
+{"id": "10000",
+          "from": "me.keeganlee.kandroid.activity.LoginActivity",
+          "to": "me.keeganlee.kandroid.activity.LoginActivity",
+          "finish": "false",
+          "method": "startActivity",
+          "request_code": "",
+          "check_run_end": "false"
+},
+{"id": "10001",
+          "from": "me.keeganlee.kandroid.activity.RegisterActivity",
+          "to": "me.keeganlee.kandroid.activity.LoginActivity",
+          "finish": "false",
+          "method": "startActivityForResult",
+          "request_code": "1",
+          "check_run_end": "true"
+},
+{"id": "10002",
+            "from": "me.keeganlee.kandroid.activity.LoginActivity",
+            "to": "me.keeganlee.kandroid.activity.RegisterActivity",
+            "finish": "false",
+            "method": "startActivity",
+            "check_run_end": "true"
+},
+  {"id": "10003",
+    "from": "me.keeganlee.kandroid.activity.ServiceMainActivity",
+    "to": "me.keeganlee.kandroid.activity.ServiceMainActivity",
+    "method": "startActivity"
+  },
+
+  {"id": "10004",
+    "from": "me.keeganlee.kandroid.activity.ServiceMainActivity",
+    "to": "me.keeganlee.kandroid.service.LocalService",
+    "method": "startService"
+  }
+]
