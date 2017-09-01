@@ -49,6 +49,13 @@
                 <action android:name="me.keeganlee.kandroid.service.LocalService" />
             </intent-filter>
         </service>
+
+        <service android:name="me.keeganlee.kandroid.service.RemoteService"
+            android:process=":remote">
+            <intent-filter>
+                <action android:name="me.keeganlee.kandroid.service.RemoteService" />
+            </intent-filter>
+        </service>
     </application>
 
 </manifest>

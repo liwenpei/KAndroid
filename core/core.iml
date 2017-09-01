@@ -101,7 +101,6 @@
     <orderEntry type="library" exported="" name="support-annotations-22.0.0" level="project" />
     <orderEntry type="module" module-name="model" exported="" />
     <orderEntry type="module" module-name="api" exported="" />
-    <orderEntry type="library" exported="" name="android-android-22" level="project" />
     <orderEntry type="library" exported="" name="fastjson-1.1.34" level="project" />
     <orderEntry type="library" exported="" name="gson-2.3" level="project" />
   </component>

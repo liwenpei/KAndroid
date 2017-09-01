@@ -20,22 +20,20 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import android.app.ActionBar;
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.content.ServiceConnection;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.widget.TextView;
 
+import me.keeganlee.kandroid.IKBaseAidlInterface;
 import me.keeganlee.kandroid.KApplication;
 import me.keeganlee.kandroid.R;
 import me.keeganlee.kandroid.bean.ActivityTransfer;
 import me.keeganlee.kandroid.core.AppAction;
 import me.keeganlee.kandroid.exception.KAndroidException;
 import me.keeganlee.kandroid.impl.KBaseServiceConnectionImpl;
-import me.keeganlee.kandroid.kinterface.KBaseServiceConnection;
 import me.keeganlee.kandroid.service.LocalService;
 import me.keeganlee.kandroid.tools.CommonUtils;
 import me.keeganlee.kandroid.tools.LogUtil;
@@ -125,12 +123,9 @@ public abstract class KBaseActivity extends FragmentActivity {
     }
 
     public void gotoService(int id, Object o){
-        gotoService(id,o,null,0);
+        gotoService(id,o,0);
     }
 
-    public void gotoService(int id, Object o, ServiceConnection conn){
-        gotoService(id,o,conn,0);
-    }
 
     protected LocalService getLocalService(){
         if(mKBaseServiceConnection != null){
@@ -138,13 +133,21 @@ public abstract class KBaseActivity extends FragmentActivity {
         }
         return null;
     }
+
+    protected IKBaseAidlInterface getRemoteService(){
+        if(mKBaseServiceConnection != null){
+            return mKBaseServiceConnection.getRemoteService();
+        }
+        return null;
+    }
+
     /**
      * goto to service when you configurationed
      *
      * @param id code
      * @param o  object
      **/
-    public void gotoService(int id, Object o,  ServiceConnection conn, int flags) {
+    public void gotoService(int id, Object o,   int flags) {
         boolean isFind = false;
         try {
             for (ActivityTransfer transfer : mActivityList) {

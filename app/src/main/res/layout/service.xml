@@ -10,4 +10,6 @@
         android:layout_height="wrap_content" android:text="绑定Service" />
     <Button android:id="@+id/unbind" android:layout_width="wrap_content"
         android:layout_height="wrap_content" android:text="解除Service" />
+    <Button android:id="@+id/startRemoteService" android:layout_width="wrap_content"
+        android:layout_height="wrap_content" android:text="启动RemoteService" />
 </LinearLayout>

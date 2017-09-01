@@ -5,6 +5,7 @@ import android.content.ComponentName;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.os.RemoteException;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -22,6 +23,7 @@ public class ServiceMainActivity extends KBaseActivity {
     private Button stopBtn;
     private Button bindBtn;
     private Button unBindBtn;
+    private Button startRemoteServiceBtn;
     private static final String TAG = "MainActivity";
     private LocalService myService;
 
@@ -39,10 +41,12 @@ public class ServiceMainActivity extends KBaseActivity {
         stopBtn = (Button) findViewById(R.id.stop);
         bindBtn = (Button) findViewById(R.id.bind);
         unBindBtn = (Button) findViewById(R.id.unbind);
+        startRemoteServiceBtn = (Button) findViewById(R.id.startRemoteService);
         startBtn.setOnClickListener(new MyOnClickListener());
         stopBtn.setOnClickListener(new MyOnClickListener());
         bindBtn.setOnClickListener(new MyOnClickListener());
         unBindBtn.setOnClickListener(new MyOnClickListener());
+        startRemoteServiceBtn.setOnClickListener(new MyOnClickListener());
     }
 
     @Override
@@ -78,15 +82,38 @@ public class ServiceMainActivity extends KBaseActivity {
                     TestBean testBean1 = new TestBean();
                     testBean1.setAge("111ddd");
                     gotoService(10004,testBean1);
-                    gotoService(10006,testBean1,conn,  BIND_NOT_FOREGROUND);
+                    gotoService(10006,testBean1, BIND_NOT_FOREGROUND);
                     //bindService(intent, conn, Service.BIND_AUTO_CREATE);
                     toast("bindService");
                     break;
                 case R.id.unbind:
                     // 解除Service
-                    gotoService(10007,null,conn);
+                    gotoService(10007,null);
                     //unbindService(conn);
                     toast("unbindService");
+                    break;
+                case R.id.startRemoteService:
+                    gotoService(10008,null,Service.BIND_AUTO_CREATE);
+                    toast("startRemoteService");
+                    new Thread(){
+                        @Override
+                        public void run(){
+                            try {
+                                Thread.sleep(1000);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+
+                            try {
+                                int result = getRemoteService().plus(3, 5);
+                                String upperStr = getRemoteService().toUpperCase("hello world");
+                                LogUtil.debug("result is " + result);
+                                LogUtil.debug("upperStr is " + upperStr);
+                            } catch (RemoteException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }.start();
                     break;
             }
         }

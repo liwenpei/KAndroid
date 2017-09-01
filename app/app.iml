@@ -110,7 +110,6 @@
     <orderEntry type="module" module-name="core" exported="" />
     <orderEntry type="module" module-name="api" exported="" />
     <orderEntry type="module" module-name="global" exported="" />
-    <orderEntry type="library" exported="" name="android-android-22" level="project" />
     <orderEntry type="library" exported="" name="fastjson-1.1.34" level="project" />
     <orderEntry type="library" exported="" name="gson-2.3" level="project" />
     <orderEntry type="library" exported="" name="fasterxml-jackson-databind-custom" level="project" />

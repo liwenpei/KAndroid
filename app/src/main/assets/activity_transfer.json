@@ -48,5 +48,11 @@
     "to": "me.keeganlee.kandroid.service.LocalService",
     "method": "unbindService",
     "connection_cls":"me.keeganlee.kandroid.impl.KBaseServiceConnectionImpl"
+  },
+  {"id": "10008",
+    "from": "me.keeganlee.kandroid.activity.ServiceMainActivity",
+    "to": "me.keeganlee.kandroid.service.RemoteService",
+    "method": "bindService",
+    "connection_cls":"me.keeganlee.kandroid.impl.KBaseServiceConnectionImpl"
   }
 ]
