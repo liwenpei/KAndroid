@@ -14,6 +14,12 @@ public class LogUtil {
         Log.d(TAG+"_"+SECONDETAG,o);
     }
 
+    public static void debug(Object o){
+        if(o != null){
+            Log.d(TAG+"_"+SECONDETAG,o.toString());
+        }
+    }
+
     public static void debug(String tag,String o){
         Log.d(TAG+"_"+tag,o);
     }

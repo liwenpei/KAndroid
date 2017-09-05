@@ -54,5 +54,16 @@
     "to": "me.keeganlee.kandroid.service.RemoteService",
     "method": "bindService",
     "connection_cls":"me.keeganlee.kandroid.impl.KBaseServiceConnectionImpl"
-  }
+  },
+  {"id": "10009",
+    "from": "me.keeganlee.kandroid.activity.SocketTestActivity",
+    "to": "me.keeganlee.kandroid.activity.SocketTestActivity",
+    "method": "startActivity"
+  } ,
+  {"id": "10010",
+  "from": "me.keeganlee.kandroid.activity.SocketTestActivity",
+  "to": "me.keeganlee.kandroid.service.RemoteService",
+  "method": "bindService",
+  "connection_cls":"me.keeganlee.kandroid.impl.KBaseServiceConnectionImpl"
+}
 ]
