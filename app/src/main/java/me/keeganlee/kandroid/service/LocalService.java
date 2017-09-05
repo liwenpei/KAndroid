@@ -11,7 +11,6 @@ import me.keeganlee.kandroid.tools.LogUtil;
 public class LocalService extends KBaseService {
     private final IBinder myBinder =  new LocalBinder();
 
-
     @Override
     public IBinder onBind(Intent intent) {
         super.onBind(intent);

@@ -60,7 +60,7 @@
         <application>
             <receiver android:name="me.keeganlee.kandroid.receiver.KBaseReceiver">
                 <intent-filter android:priority="1000">
-                    <action android:name="com.liwenpei"/>
+                    <action android:name="me.keeganlee.kandroid.receiver.KBaseReceiver"/>
                 </intent-filter>
             </receiver>
         </application>
