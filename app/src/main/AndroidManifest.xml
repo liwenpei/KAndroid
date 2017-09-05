@@ -56,6 +56,14 @@
                 <action android:name="me.keeganlee.kandroid.service.RemoteService" />
             </intent-filter>
         </service>
+
+        <application>
+            <receiver android:name="me.keeganlee.kandroid.receiver.KBaseReceiver">
+                <intent-filter android:priority="1000">
+                    <action android:name="com.liwenpei"/>
+                </intent-filter>
+            </receiver>
+        </application>
     </application>
 
 </manifest>
