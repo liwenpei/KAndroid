@@ -25,6 +25,7 @@ public class KBaseReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         mContext = context;
         mIntent = intent;
+        checkFrom();
     }
 
     private void checkFrom(){
