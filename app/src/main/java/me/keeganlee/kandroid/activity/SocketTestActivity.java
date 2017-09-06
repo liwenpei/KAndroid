@@ -1,5 +1,7 @@
 package me.keeganlee.kandroid.activity;
 
+import java.io.IOException;
+import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,7 +18,10 @@ import android.widget.EditText;
 import android.widget.ListView;
 
 import me.keeganlee.kandroid.R;
+import me.keeganlee.kandroid.socket.BetachClient;
 import me.keeganlee.kandroid.socket.ClientSocket;
+import me.keeganlee.kandroid.tools.CommonUtils;
+import me.keeganlee.kandroid.tools.ConvertUtil;
 
 
 public class SocketTestActivity extends KBaseActivity implements OnClickListener, ClientSocket.OnSocketRecieveCallBack {
@@ -80,7 +85,20 @@ public class SocketTestActivity extends KBaseActivity implements OnClickListener
             arryAdapter.notifyDataSetChanged();
             ed_send.setText("");
         } else {
-            mClientSocket.start();
+            //mClientSocket.start();
+            new Thread() {
+                @Override
+                public void run() {
+                    try {
+
+                        BetachClient client = new BetachClient("192.168.1.105", 12521);
+                        client.sendMsg(ByteBuffer.wrap("我爱你".getBytes()));
+
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }.start();
         }
     }
 

@@ -6,6 +6,7 @@ import android.os.IBinder;
 import android.os.RemoteException;
 
 import me.keeganlee.kandroid.IKBaseAidlInterface;
+import me.keeganlee.kandroid.socket.BetachServer;
 import me.keeganlee.kandroid.socket.Server;
 import me.keeganlee.kandroid.tools.LogUtil;
 
@@ -22,7 +23,8 @@ public class RemoteService extends KBaseService {
         super.onCreate();
         LogUtil.debug("onCreate()");
         //Toast.makeText(this, "onCreate()", Toast.LENGTH_SHORT).show();
-        new Server().start();
+       // new Server().start();
+        new BetachServer(this);
     }
 
 
