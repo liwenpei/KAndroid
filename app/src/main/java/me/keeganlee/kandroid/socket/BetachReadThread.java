@@ -48,7 +48,7 @@ public class BetachReadThread implements Runnable {
                         ByteBuffer dataBuff = null;
 
                         if (length > 0) {
-                            dataBuff = read(sc, length);
+                            dataBuff = SocketUtil.read(sc, length);
                         }
 
                         if (count < BaseBetach.SIZE) {
@@ -70,8 +70,8 @@ public class BetachReadThread implements Runnable {
                                 break;
                             default:
                                 String jsonStr = ConvertUtil.byteTOString(dataBuff.array());
-                                LogUtil.debug(jsonStr);
                                 LogUtil.debug("pc非正确接收到信息,request:" + request);
+                                LogUtil.debug("json内容："+jsonStr);
                                 break;
                         }
 
@@ -104,15 +104,4 @@ public class BetachReadThread implements Runnable {
         }
     }
 
-
-    public ByteBuffer read(SocketChannel sc, int length) throws IOException {
-        ByteBuffer rntValue = ByteBuffer.allocate(length);
-        int count = 0;
-        do {
-            int tmpCount = sc.read(rntValue);
-            count = count + tmpCount;
-        } while (count < length);
-
-        return rntValue;
-    }
 }

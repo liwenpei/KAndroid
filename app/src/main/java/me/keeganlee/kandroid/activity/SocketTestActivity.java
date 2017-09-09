@@ -18,6 +18,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 
 import me.keeganlee.kandroid.R;
+import me.keeganlee.kandroid.betach.BaseBetach;
 import me.keeganlee.kandroid.socket.BetachClient;
 import me.keeganlee.kandroid.socket.ClientSocket;
 import me.keeganlee.kandroid.tools.CommonUtils;
@@ -90,9 +91,19 @@ public class SocketTestActivity extends KBaseActivity implements OnClickListener
                 @Override
                 public void run() {
                     try {
-
+                        String json = "{'zhongguo':'中国'}";
+                        int length = json.getBytes("UTF-8").length;
+                        ByteBuffer buffer = ByteBuffer.allocate(8 + length);
+                        buffer.put((byte)5);
+                        buffer.put(ConvertUtil.intToByteArray(length));
+                        buffer.put((byte)1);
+                        buffer.put((byte)1);
+                        buffer.put((byte)1);
+                        buffer.put(json.getBytes("UTF-8"));
                         BetachClient client = new BetachClient("192.168.1.105", 12521);
-                        client.sendMsg(ByteBuffer.wrap("我爱你".getBytes()));
+                        buffer.rewind();
+                        BaseBetach base = new BaseBetach();
+                        client.sendMsg(base.getByteBufferForJson(BaseBetach.I4ANDROID_E_CMD_VERSION_REQ,json));
 
                     } catch (IOException e) {
                         e.printStackTrace();

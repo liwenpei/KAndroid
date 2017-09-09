@@ -2,9 +2,12 @@ package me.keeganlee.kandroid.betach;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.nio.ByteBuffer;
 import java.nio.channels.SocketChannel;
 import java.util.List;
+
+import me.keeganlee.kandroid.socket.BetachClient;
 import me.keeganlee.kandroid.tools.ConvertUtil;
 import me.keeganlee.kandroid.tools.LogUtil;
 public class BaseBetach {
@@ -309,12 +312,12 @@ public class BaseBetach {
     }
 
 
-    public ByteBuffer getHeaderData(int cmd,int length,int type,int extra1,int extra2){
+    public ByteBuffer getHeaderData(int requestCode,int length,int type,int extra1,int extra2){
         //添加头部包头信息
         ByteBuffer headerByte = ByteBuffer.allocate(8);
         //////////////////添加头部信息/////////////////////////
         // 返回头部位坐标0:响应命令
-        headerByte.put((byte) cmd);
+        headerByte.put((byte) requestCode);
         // 返回头部位坐标1-4:内容长度
         headerByte.put(ConvertUtil.intToByteArray(length));
         // 返回头部位坐标5:内容类型
@@ -327,7 +330,28 @@ public class BaseBetach {
         return headerByte;
     }
 
-    private ByteBuffer putByte(ByteBuffer byteBuffer, byte[] buff){
+    /**获取Json的ByteBuffer*/
+    public ByteBuffer getByteBufferForJson(int requestCode,String json) throws UnsupportedEncodingException {
+        byte[] buff = json.getBytes("UTF-8");
+        int length = json.getBytes("UTF-8").length;
+        ByteBuffer headerBuff = getHeaderData(requestCode,length,TYPE_JSON,1,1 );
+        headerBuff = appendBytes(headerBuff,buff);
+        headerBuff.rewind();
+        headerBuff.limit(headerBuff.capacity());
+        return headerBuff;
+    }
+    public ByteBuffer appendBytes(ByteBuffer byteBuffer, byte[] buff){
+        if(byteBuffer != null){
+            ByteBuffer tmpBuff = ByteBuffer.allocate(byteBuffer.capacity() + buff.length );
+            tmpBuff.put(byteBuffer);
+            tmpBuff.put(buff);
+            return tmpBuff;
+        }
+
+        return byteBuffer;
+    }
+
+    public ByteBuffer putByte(ByteBuffer byteBuffer, byte[] buff){
         if(byteBuffer != null){
             if(byteBuffer.capacity() >= byteBuffer.position() + buff.length){
                 byteBuffer.put(buff);
