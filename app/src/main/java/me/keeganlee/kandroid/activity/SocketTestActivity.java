@@ -26,7 +26,7 @@ import me.keeganlee.kandroid.tools.ConvertUtil;
 
 
 public class SocketTestActivity extends KBaseActivity implements OnClickListener, ClientSocket.OnSocketRecieveCallBack {
-    public static final String SERVER_NAME = "192.168.1.104";
+    public static final String SERVER_NAME = "192.168.1.3";
     public static final int PORT = 8142;
 
     Button btn_send;
@@ -91,7 +91,12 @@ public class SocketTestActivity extends KBaseActivity implements OnClickListener
                 @Override
                 public void run() {
                     try {
-                        String json = "{'zhongguo':'中国'}";
+                        String json = "{\n" +
+                                "    \"data\": {\n" +
+                                "        \"targetAddress\": \"192.168.1.104\",\n" +
+                                "        \"port\": \"12521\"\n" +
+                                "    }\n" +
+                                "}";
                         int length = json.getBytes("UTF-8").length;
                         ByteBuffer buffer = ByteBuffer.allocate(8 + length);
                         buffer.put((byte)5);
@@ -100,7 +105,10 @@ public class SocketTestActivity extends KBaseActivity implements OnClickListener
                         buffer.put((byte)1);
                         buffer.put((byte)1);
                         buffer.put(json.getBytes("UTF-8"));
-                        BetachClient client = new BetachClient("192.168.1.105", 12521);
+                        if(client == null){
+                            client = new BetachClient("192.168.1.3", 12521);
+                        }
+
                         buffer.rewind();
                         BaseBetach base = new BaseBetach();
                         client.sendMsg(base.getByteBufferForJson(BaseBetach.I4ANDROID_E_CMD_VERSION_REQ,json));
@@ -112,7 +120,7 @@ public class SocketTestActivity extends KBaseActivity implements OnClickListener
             }.start();
         }
     }
-
+    BetachClient client;
     @Override
     public void OnRecieveFromServerMsg(String msg) {
         // TODO Auto-generated method stub

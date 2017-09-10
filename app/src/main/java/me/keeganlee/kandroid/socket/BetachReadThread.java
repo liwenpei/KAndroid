@@ -60,7 +60,7 @@ public class BetachReadThread implements Runnable {
                         } else if (count == -1) {
                             // 当客户端断开连接时会触发read事件，返回值-1，关闭通道
                         }
-                        close();
+                        //close();
 
                         switch (request) {
                             case BaseBetach.I4ANDROID_E_CMD_PHONE_LINK_PC_WIFI_RESP:
